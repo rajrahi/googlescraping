@@ -1,6 +1,8 @@
 {
-    "detach" : "True" ,
+    "detach" : "False" ,
     "user_directory": "C:/Users/rajvendra rahi/AppData/Local/Google/Chrome/User Data" , 
-    "profile_directory" : "Default"
+    "profile_directory" : "Default",
+    "delay_after_keywords" : 7
+
 
 }
