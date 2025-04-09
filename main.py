@@ -18,8 +18,8 @@ while True:
     g.type_text(keywords)
     time.sleep(2)
     try:
-        post_feed(g.get_data_from_soups()[0])
-        # print(a)
+        # post_feed(g.get_data_from_soups()[0])
+        print(g.get_data_from_soups()[0])
 
     except Exception as e:
         print(e)
