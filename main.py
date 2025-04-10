@@ -9,6 +9,9 @@ from  pydantic_model import AdData
 
 limit = 1
 skip = 0
+
+
+g =  Google_scraper("https://www.google.com/" , detach=False)
 while True:
 
     keywords = get_keywords(limit ,skip)
@@ -17,7 +20,7 @@ while True:
     if "Error" in keywords:
         break
 
-    g =  Google_scraper("https://www.google.com/" , detach=False)
+    
     g.type_text(keywords)
     time.sleep(2)
     try:
