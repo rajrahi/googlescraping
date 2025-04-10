@@ -4,6 +4,19 @@ import json
 
 
 
+
+def open_config():
+    try:
+        with open('config.json', 'r') as file:
+            config = json.load(file)
+            return config
+    except FileNotFoundError:
+        return "Error: config.json file not found"
+    except json.JSONDecodeError:
+        return "Error: Invalid JSON format in config.json"
+
+api = open_config()['api']
+
 def get_keywords(limit , skip):
 
     keywords = []
@@ -11,8 +24,9 @@ def get_keywords(limit , skip):
     limit = limit
     skip = skip
 
+
     # Replace with the actual URL of your API endpoint              
-    api_url = f"https://4884-106-51-128-51.ngrok-free.app/get_keywords?limit={limit}&skip={skip}"
+    api_url = f"{api}/get_keywords?limit={limit}&skip={skip}"
 
     try:
         response = requests.get(api_url)
@@ -36,7 +50,7 @@ def get_keywords(limit , skip):
 
 def post_feed(feed_data):
     # Replace with the actual URL of your API endpoint
-    api_url = "https://4884-106-51-128-51.ngrok-free.app/feed/"
+    api_url = f"{api}/feed/"
     
     try:
         headers = {'Content-Type': 'application/json'}
