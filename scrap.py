@@ -55,8 +55,8 @@ class Google_scraper():
         }
         self.options.add_experimental_option("prefs", prefs)
 
-        user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
-        self.options.add_argument(f"--user-agent={user_agent}")
+        # user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+        # self.options.add_argument(f"user-agent={user_agent}")
 
         # Other flags
         self.options.add_argument("--disable-infobars")

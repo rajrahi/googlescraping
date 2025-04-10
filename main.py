@@ -7,7 +7,7 @@ from api import get_keywords , post_feed
 
 from  pydantic_model import AdData
 
-limit = 1
+limit = 5
 skip = 0
 
 
@@ -31,15 +31,15 @@ while True:
         print(e)
 
 
-g =  Google_scraper("https://www.google.com/" , detach=False)
-g.type_text(["addidas" ])
-time.sleep(2)
-try:
-    post_feed(g.get_data_from_soups())
-    print(g.get_data_from_soups())
+# g =  Google_scraper("https://www.google.com/" , detach=False)
+# g.type_text(["addidas" ])
+# time.sleep(2)
+# try:
+#     print(post_feed(g.get_data_from_soups()))
+#     print(g.get_data_from_soups())
 
-except Exception as e:
-    print(e)
+# except Exception as e:
+#     print(e)
 
 
 

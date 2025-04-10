@@ -1,3 +1,4 @@
+from typing import Any
 import requests
 import json
 
@@ -66,16 +67,28 @@ def get_keywords(limit , skip):
 #     except requests.exceptions.RequestException as e:
 #         return f"Error making request: {e}"
     
-def post_feed(ad: AdData):
-    api_url = "https://4e02-2406-7400-56-ab78-6ce0-b010-bd9-1e58.ngrok-free.app/append/"  # Replace with your real URL
+def post_feed(ad: AdData) -> Any:
+    api_url = f"{api}/append/"  # Replace with your real URL
     headers = {"Content-Type": "application/json"}
     
-    # Convert Pydantic model to dict
-    feed_data = ad.dict()  # or ad.model_dump() for Pydantic v2+
+    try:
+        feed_data = ad.dict()  # or ad.model_dump() if using Pydantic v2+
+        response = requests.post(api_url, json=feed_data, headers=headers)
 
-    # Send as JSON
-    response = requests.post(api_url, json=feed_data, headers=headers)
-    
-    return response.json() 
+        # Check if the request was successful
+        if response.status_code == 200:
+            print(f"Package sent successfully. Status code: {response.status_code}")
+            return response.json()
+        else:
+            print(f"Failed to send package. Status code: {response.status_code}, Response: {response.text}")
+            return {"error": f"Failed with status code {response.status_code}", "details": response.text}
+
+    except requests.exceptions.RequestException as e:
+        print(f"An error occurred during the request: {e}")
+        return {"error": "Request failed", "details": str(e)}
+
+    except Exception as e:
+        print(f"An unexpected error occurred: {e}")
+        return {"error": "Unexpected error", "details": str(e)}
 
 
