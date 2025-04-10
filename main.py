@@ -24,8 +24,9 @@ while True:
     g.type_text(keywords)
     time.sleep(2)
     try:
-        print(post_feed(g.get_data_from_soups()))
+        g.get_data_from_soups()
         print(g.get_data_from_soups())
+        g.soups = []
 
     except Exception as e:
         print(e)

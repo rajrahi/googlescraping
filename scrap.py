@@ -13,6 +13,7 @@ import time
 import undetected_chromedriver as uc 
 
 from pydantic_model import AdData
+from api import post_feed
 
 
 class Google_scraper():
@@ -196,7 +197,7 @@ class Google_scraper():
 
                 
                 print({"Post_owner":title ,  "Link":"https://"+url['data-dtld'] ,"Ad_title " : ad_title , "Ad_text":des , "Direct_links" : sub_urls, "Small_links" : small_urls, "Ad_position" : index + 1})
-                return  AdData( 
+                ad =  AdData( 
                     Post_owner=title ,  
                     Link="https://"+url['data-dtld'] ,
                     Ad_title=  ad_title , 
@@ -204,6 +205,8 @@ class Google_scraper():
                     Direct_links=  sub_urls, 
                     Small_links=  small_urls, 
                     Ad_position=  index + 1 )
+                
+                post_feed(ad)
 
         #     self.full_data.append(data)
 
