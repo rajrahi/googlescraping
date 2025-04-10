@@ -1,7 +1,2 @@
-def get_page(url):
-    response = requests.get(url)
-    soup = BeautifulSoup(response.content, 'html.parser')
-    return soup.prettify()
-
-
-print(get_page(url))
+         # self.driver.switch_to.window(self.driver.window_handles[0])
+            # self.driver.close()

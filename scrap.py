@@ -12,6 +12,8 @@ from bs4 import BeautifulSoup
 import time
 import undetected_chromedriver as uc 
 
+from pydantic_model import AdData
+
 
 class Google_scraper():
     def __init__(self , url , detach=False):
@@ -53,8 +55,7 @@ class Google_scraper():
         }
         self.options.add_experimental_option("prefs", prefs)
 
-        # User-Agent (optional, usually inherited from profile)
-        user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.5845.180 Safari/537.36"
+        user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
         self.options.add_argument(f"user-agent={user_agent}")
 
         # Other flags
@@ -110,6 +111,9 @@ class Google_scraper():
             self.driver.execute_script("window.open('');")
             self.driver.switch_to.window(self.driver.window_handles[-1])
             self.driver.get(self.url)
+            
+            
+
 
              
             
@@ -117,6 +121,7 @@ class Google_scraper():
     def start(self):
         self.init_driver(self.detach)
         self.driver.get(self.url)
+
         self.driver.implicitly_wait(10)
 
     def get_data_from_soups(self):
@@ -189,20 +194,28 @@ class Google_scraper():
                     })
 
 
+                
+                print({"Post_owner":title ,  "Link":"https://"+url['data-dtld'] ,"Ad_title " : ad_title , "Ad_text":des , "Direct_links" : sub_urls, "Small_links" : small_urls, "Ad_position" : index + 1})
+                return  AdData( 
+                    Post_owner=title ,  
+                    Link="https://"+url['data-dtld'] ,
+                    Ad_title=  ad_title , 
+                    Ad_text=des , 
+                    Direct_links=  sub_urls, 
+                    Small_links=  small_urls, 
+                    Ad_position=  index + 1 )
 
-                data.append( {"Post_owner":title ,  "Link":"https://"+url['data-dtld'] ,"Ad_title " : ad_title , "Ad_text":des , "Direct_links" : sub_urls, "Small_links" : small_urls, "Ad_position" : index + 1} )
+        #     self.full_data.append(data)
 
-            self.full_data.append(data)
-
-        print(self.full_data)
-        return json.dumps(self.full_data , indent=4)
+        
+        # return json.dumps(self.full_data , indent=4)
 
 
 # g =  Google_scraper("https://www.google.com/" , detach=False)
 
 
 
-# keywords = ["genrative ai courses" , "emp monitor" , "almabetter" ]
+# keywords = [ "almabetter" ]
 # g.type_text(keywords)
 
 
